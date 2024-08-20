@@ -1,0 +1,67 @@
+在 macOS 上，你可以通过创建一个定时任务来每周运行一次 .sh 文件。以下是实现步骤：
+
+使用 launchd 实现每周运行一次脚本
+launchd 是 macOS 的系统服务管理工具，负责启动和管理系统中的任务。你可以创建一个 LaunchAgent 来定期运行你的脚本。
+
+1. 创建 .plist 文件
+首先，创建一个 .plist 文件，这个文件定义了定时任务的配置。你可以在 ~/Library/LaunchAgents/ 目录下创建这个文件。
+打开终端，输入以下命令创建一个 .plist 文件：
+
+bash nano ~/Library/LaunchAgents/com.username.weeklybackup.plist
+你可以将 com.username.weeklybackup.plist 替换为任意符合命名规范的文件名。
+
+在文件中添加以下内容：
+
+xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.username.weeklybackup</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/path/to/your/script.sh</string> //这里找到wechat.sh 目录用pwd 显示具体路径
+    </array>
+
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Weekday</key>
+        <integer>1</integer> <!-- 1 for Sunday, 2 for Monday, etc. -->
+        <key>Hour</key>
+        <integer>2</integer> <!-- Run at 2 AM -->
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/com.username.weeklybackup.log</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/com.username.weeklybackup.error</string>
+    <key>RunAtLoad</key>
+    <true/>
+</dict>
+</plist>
+其中，/path/to/your/script.sh 需要替换为你的脚本路径。
+
+Weekday 表示周几运行任务，1 表示星期天，2 表示星期一，以此类推。你可以根据需要调整 Hour 和 Minute 设置任务的运行时间。
+
+保存并退出 nano（按 Ctrl + X 然后按 Y 再按 Enter）。
+
+2. 加载 plist 文件
+在终端中运行以下命令以加载并启动这个定时任务：
+
+bash launchctl load ~/Library/LaunchAgents/com.username.weeklybackup.plist
+3. 检查任务是否加载
+你可以用以下命令来确认任务是否已加载：
+
+bash launchctl list | grep com.username.weeklybackup
+如果任务已成功加载，你会看到任务的 Label 出现在输出中。
+
+注意事项：
+脚本路径必须是绝对路径。
+脚本需要有可执行权限，如果还没有，可以使用 chmod +x /path/to/your/script.sh 来添加权限。
+.plist 文件名要独特，防止与其他任务冲突。
+通过这种方式，你的脚本将每周按指定时间自动运行。
