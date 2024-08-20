@@ -14,6 +14,8 @@ ls "$HOME/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Supp
 
 4.运行脚本：./backup_wechat_to_icloud.sh。
 
+![WeChat1dfb3e9b9462e6ac36b7cec290f9ef92](https://github.com/user-attachments/assets/50e25fbb-2714-478b-b8bd-56e508d26767)
+
 其他注意事项：
 路径中的空格：注意路径中的空格可能会引发问题，因此需要用引号括起来。
 路径中的版本号：如果微信应用更新，路径中的版本号可能会变化。你可能需要手动检查并更新脚本中的路径。
