@@ -1,5 +1,9 @@
 # BackupWechat
-MacOS Backup WeChat to iCloud 
+MacOS Backup WeChat to iCloud 苹果电脑（iMac 和 Macbook）的微信备份到iCloud云盘的脚本
+
+首先你要把微信备份到本地的苹果电脑上再将备份的backup文件同步到iCloud上去；
+
+![4091724144632_ pic](https://github.com/user-attachments/assets/06b03f8b-239c-47f5-be8d-5eb21f1ccb14)
 
 注意事项：
 1. 确认路径：打开终端并使用以下命令来检查你的微信备份文件夹路径是否正确：
